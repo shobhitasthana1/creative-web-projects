@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Premium Love Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff2d75;
+            --accent-pink: #ffb6c1;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0f0c29;
+            background: linear-gradient(135deg, #240b36, #c31432);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(45deg);
+            top: -50%;
+            z-index: 1;
+            animation: moveGrid 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moveGrid {
+            from { transform: rotateX(45deg) translateY(0); }
+            to { transform: rotateX(45deg) translateY(50px); }
+        }
+
+        /* The Heart Box */
+        .heart-wrapper {
+            position: relative;
+            z-index: 10;
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 0 20px rgba(255, 45, 117, 0.5));
+        }
+
+        .heart-shape {
+            width: 450px;
+            height: 450px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            clip-path: path('M225,430 C225,430 430,300 430,180 C430,110 360,70 300,70 C260,70 225,100 225,100 C225,100 190,70 150,70 C90,70 20,110 20,180 C20,300 225,430 225,430 Z');
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            padding-top: 60px;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            text-align: center;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-pink); }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px var(--primary-pink); }
+        }
+
+        .input-group {
+            position: relative;
+            margin: 15px 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        input {
+            width: 70%;
+            max-width: 250px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            text-align: center;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 15px var(--primary-pink);
+        }
+
+        button {
+            padding: 12px 40px;
+            border-radius: 50px;
+            border: none;
+            background: var(--primary-pink);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin-top: 5px;
+        }
+
+        button:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: #ff0055;
+            box-shadow: 0 15px 25px rgba(255, 45, 117, 0.4);
+        }
+
+        .heart-float {
+            position: absolute;
+            color: var(--primary-pink);
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp 4s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        #error-msg {
+            color: #ffb6c1;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            height: 20px;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media screen and (max-width: 500px) {
+            .heart-wrapper {
+                transform: scale(0.75) !important; 
+            }
+            h2 { font-size: 3rem; }
+            input { width: 85%; font-size: 16px; }
+        }
+
+        @media screen and (max-width: 350px) {
+            .heart-wrapper { transform: scale(0.65) !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="heart-wrapper" id="heartBox">
+        <form id="login-form" class="heart-shape">
+            <h2>Shobhit</h2>
+            <div class="input-group">
+                <input type="text" id="code" placeholder="Secret Name..." autocomplete="off">
+            </div>
+            <button type="submit">Unlock</button>
+            <div id="error-msg"></div>
+        </form>
+    </div>
+
+    <script>
+        const heartBox = document.getElementById('heartBox');
+        const form = document.getElementById('login-form');
+        const codeInput = document.getElementById('code');
+        const errorMsg = document.getElementById('error-msg');
+
+        // 1. 3D Tilt (Desktop Only)
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                heartBox.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        document.addEventListener('mouseleave', () => {
+             if (window.innerWidth > 768) {
+                heartBox.style.transform = `rotateY(0deg) rotateX(0deg)`;
+             }
+        });
+
+        // 2. Login Logic & Redirect
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Logic to check name
+            if (codeInput.value.trim().toLowerCase() === 'shobhit') {
+                errorMsg.innerHTML = "Access Granted! ❤️";
+                errorMsg.style.color = "#fff";
+                
+                // Heartbeat animation
+                heartBox.style.animation = "heartbeat 0.5s infinite";
+                
+                // Redirect after 1.5 seconds
+                setTimeout(() => { 
+                    window.location.href = 'main.html'; 
+                }, 1500);
+                
+            } else {
+                errorMsg.innerHTML = "Only my Shobhit can enter...";
+                
+                // Error Shake Effect
+                const isMobile = window.innerWidth <= 500;
+                const baseTransform = isMobile ? "scale(0.75)" : "scale(1)";
+                
+                heartBox.style.transform = `${baseTransform} translateX(10px)`;
+                setTimeout(() => {
+                     heartBox.style.transform = `${baseTransform} translateX(-10px)`;
+                }, 100);
+                setTimeout(() => {
+                     heartBox.style.transform = window.innerWidth > 768 ? "rotateY(0) rotateX(0)" : baseTransform;
+                }, 200);
+            }
+        });
+
+        // 3. Spawning Hearts
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(spawnHeart, 300);
+        
+        // Keyframes for Heartbeat
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes heartbeat {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            @media screen and (max-width: 500px) {
+                @keyframes heartbeat {
+                    0% { transform: scale(0.75); }
+                    50% { transform: scale(0.85); }
+                    100% { transform: scale(0.75); }
+                }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>

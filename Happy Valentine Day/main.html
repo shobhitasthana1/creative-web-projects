@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Preparing Your Surprise...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --accent-pink: #ff8fa3;
+            --bg-dark: #1a0a0d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Changed to min-height to prevent cutting off content on small screens */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #2d0a15 0%, #000 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Modern Grid Background */
+        .grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255, 77, 109, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 77, 109, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            top: -20%;
+            animation: moveGrid 15s linear infinite;
+            will-change: transform; /* Mobile Performance Boost */
+            pointer-events: none;
+        }
+
+        @keyframes moveGrid {
+            from { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            to { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            /* Responsive padding */
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* Safari Support */
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            /* Fluid width for mobile */
+            width: 90%; 
+            max-width: 450px;
+        }
+
+        .loading-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--primary-pink);
+            line-height: 1.2;
+        }
+
+        .subtext {
+            font-size: 0.9em;
+            color: var(--accent-pink);
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Advanced Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-pink), #ff00ff);
+            box-shadow: 0 0 15px var(--primary-pink);
+            border-radius: 10px;
+            animation: load 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            60% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .heart-img {
+            width: 100px;
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        .next-btn {
+            background: var(--primary-pink);
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+            display: inline-block;
+            animation: revealBtn 0.5s ease 4s forwards;
+            /* Prevents blue highlight on tap on Android */
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        @keyframes revealBtn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .next-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Floating Glow Particles */
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: rise linear infinite;
+            will-change: transform, opacity;
+        }
+
+        @keyframes rise {
+            to { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        
+        /* 1. Standard Mobile Adjustment */
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 30px 20px; /* Reduces padding so content fits better */
+                width: 85%;
+            }
+            .loading-text {
+                font-size: 2rem; /* Slightly smaller text */
+            }
+            .subtext {
+                font-size: 0.8em;
+                margin-bottom: 20px;
+            }
+            .next-btn {
+                padding: 12px 30px; /* Adjust touch target */
+                font-size: 1rem;
+            }
+            .heart-img {
+                width: 80px; /* Smaller heart image */
+            }
+        }
+
+        /* 2. Landscape / Short Screen Adjustment (e.g. Rotate phone) */
+        @media screen and (max-height: 600px) {
+            .container {
+                padding: 15px 20px; /* Compact padding */
+            }
+            .loading-text {
+                font-size: 1.8rem;
+                margin-bottom: 5px;
+            }
+            .subtext {
+                margin-bottom: 15px;
+            }
+            .progress-bar {
+                margin-bottom: 15px;
+                height: 6px; /* Thinner bar */
+            }
+            .heart-img {
+                width: 60px; /* Smaller heart */
+            }
+            .next-btn {
+                margin-top: 15px;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid"></div>
+
+    <div class="container">
+        <div class="loading-text">Crafting Memories...</div>
+        <div class="subtext">Just a moment for the magic to load</div>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <img class="heart-img" src="https://static.vecteezy.com/system/resources/thumbnails/017/419/333/small/3d-illustration-of-a-shiny-heart-symbol-of-love-and-romance-png.png" alt="Heart">
+        
+        <br>
+        <button class="next-btn" onclick="window.location.href='book.html'">OPEN THE BOOK →</button>
+    </div>
+
+    <script>
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 5 + 2 + 'px';
+            particle.style.width = size;
+            particle.style.height = size;
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '110vh';
+            
+            const duration = Math.random() * 3 + 4;
+            particle.style.animationDuration = duration + 's';
+            
+            // Random color tint
+            const colors = ['#ff4d6d', '#ffb3c1', '#ffffff'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), duration * 1000);
+        }
+
+        setInterval(createParticle, 150);
+    </script>
+</body>
+</html>
